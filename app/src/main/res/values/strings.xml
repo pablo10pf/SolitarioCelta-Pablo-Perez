@@ -6,6 +6,7 @@
     <string name="txtOpcionGuardar">Guardar Partida</string>
     <string name="txtOpcionRecuperar">Recuperar Partida</string>
     <string name="txtOpcionMejoresResultados">Mejores Resultados</string>
+    <string name="txtFichas">Fichas Restantes:</string>
 
     <!-- Mensajes SnackBars-->
     <string name="txtSinImplementar">¡No implementado aún!</string>

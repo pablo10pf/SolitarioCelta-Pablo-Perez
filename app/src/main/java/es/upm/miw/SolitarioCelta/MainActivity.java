@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -25,11 +26,13 @@ public class MainActivity extends AppCompatActivity {
 
     SCeltaViewModel miJuego;
     public final String LOG_KEY = "MiW";
+    private TextView fichasRestantes;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        fichasRestantes = (TextView) findViewById(R.id.txtFichasValor);
         miJuego = ViewModelProviders.of(this).get(SCeltaViewModel.class);
         mostrarTablero();
     }
@@ -75,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     button.setChecked(miJuego.obtenerFicha(i, j) == JuegoCelta.FICHA);
                 }
             }
+        actualizarContadorFichas();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -173,5 +177,9 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return sb.toString();
+    }
+
+    public void actualizarContadorFichas(){
+        fichasRestantes.setText(String.valueOf(miJuego.numeroFichas()));
     }
 }
