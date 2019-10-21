@@ -1,6 +1,7 @@
 package es.upm.miw.SolitarioCelta;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -13,10 +14,16 @@ import android.widget.RadioButton;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class MainActivity extends AppCompatActivity {
 
 
-	SCeltaViewModel miJuego;
+    SCeltaViewModel miJuego;
     public final String LOG_KEY = "MiW";
 
     public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
      * Se ejecuta al pulsar una ficha
      * Las coordenadas (i, j) se obtienen a partir del nombre del recurso, ya que el botón
      * tiene un identificador en formato pXY, donde X es la fila e Y la columna
+     *
      * @param v Vista de la ficha pulsada
      */
     public void fichaPulsada(@NotNull View v) {
@@ -83,7 +91,26 @@ public class MainActivity extends AppCompatActivity {
             case R.id.opcAcercaDe:
                 startActivity(new Intent(this, AcercaDe.class));
                 return true;
-
+            case R.id.opcReiniciarPartida:
+                new RestartFragment().show(getSupportFragmentManager(), "RESTART_DIALOG");
+                return true;
+            case R.id.opcGuardarPartida:
+                guardarPartidaFichero();
+                Snackbar.make(
+                        findViewById(android.R.id.content),
+                        getString(R.string.txtPartidaGuardada),
+                        Snackbar.LENGTH_LONG
+                ).show();
+                return true;
+            case R.id.opcRecuperarPartida:
+                miJuego.deserializaTablero(recuperarPartidaFichero());
+                mostrarTablero();
+                Snackbar.make(
+                        findViewById(android.R.id.content),
+                        getString(R.string.txtPartidaRecuperada),
+                        Snackbar.LENGTH_LONG
+                ).show();
+                return true;
             // TODO!!! resto opciones
 
             default:
@@ -94,5 +121,57 @@ public class MainActivity extends AppCompatActivity {
                 ).show();
         }
         return true;
+    }
+
+    public void guardarPartidaFichero() {
+        FileOutputStream fos =
+                null;
+
+        try {
+            fos = openFileOutput("partida_guardada.txt", Context.MODE_PRIVATE);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            fos.write(miJuego.serializaTablero().getBytes());
+            fos.write('\n');
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String recuperarPartidaFichero() {
+        StringBuffer sb = new StringBuffer();
+        BufferedReader fin = null;
+        try {
+            fin = new BufferedReader(
+                    new InputStreamReader(openFileInput("partida_guardada.txt")));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String linea;
+        try {
+            linea = fin.readLine();
+            while (linea != null) {
+                sb.append(linea + '\n');
+                linea = fin.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            fin.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
     }
 }
