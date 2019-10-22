@@ -21,17 +21,25 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import es.upm.miw.SolitarioCelta.models.RepositorioResultados;
+import es.upm.miw.SolitarioCelta.models.Resultado;
+
 public class MainActivity extends AppCompatActivity {
 
 
     SCeltaViewModel miJuego;
     public final String LOG_KEY = "MiW";
     private TextView fichasRestantes;
-
+    RepositorioResultados repositorioResultados;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        repositorioResultados = new RepositorioResultados(this);
+        Log.i("COUNT_ROWS",String.valueOf(repositorioResultados.count()));
+        Resultado resultado = new Resultado("Pablo",3,"02:40","22/10/2019");
+        repositorioResultados.add(resultado);
+        Log.i("RESULTADOS",repositorioResultados.getAll().toString());
         fichasRestantes = (TextView) findViewById(R.id.txtFichasValor);
         miJuego = ViewModelProviders.of(this).get(SCeltaViewModel.class);
         mostrarTablero();
