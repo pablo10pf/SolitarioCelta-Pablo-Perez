@@ -1,9 +1,11 @@
-package es.upm.miw.SolitarioCelta;
+package es.upm.miw.solitarioCelta;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,9 +22,15 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 
-import es.upm.miw.SolitarioCelta.models.RepositorioResultados;
-import es.upm.miw.SolitarioCelta.models.Resultado;
+import es.upm.miw.solitarioCelta.models.RepositorioResultados;
+import es.upm.miw.solitarioCelta.models.Resultado;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,15 +39,18 @@ public class MainActivity extends AppCompatActivity {
     public final String LOG_KEY = "MiW";
     private TextView fichasRestantes;
     RepositorioResultados repositorioResultados;
+    SharedPreferences sharedPrefs;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         repositorioResultados = new RepositorioResultados(this);
-        Log.i("COUNT_ROWS",String.valueOf(repositorioResultados.count()));
-        Resultado resultado = new Resultado("Pablo",3,"02:40","22/10/2019");
-        repositorioResultados.add(resultado);
-        Log.i("RESULTADOS",repositorioResultados.getAll().toString());
+        //Log.i("COUNT_ROWS",String.valueOf(repositorioResultados.count()));
+        //Resultado resultado = new Resultado("Pablo",3,"02:40","22/10/2019");
+        //repositorioResultados.add(resultado);
+        //Log.i("RESULTADOS",repositorioResultados.getAll().toString());
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
         fichasRestantes = (TextView) findViewById(R.id.txtFichasValor);
         miJuego = ViewModelProviders.of(this).get(SCeltaViewModel.class);
         mostrarTablero();
@@ -64,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         mostrarTablero();
         if (miJuego.juegoTerminado()) {
             // TODO guardar puntuación
+            repositorioResultados.add(crearPartidaGuardar());
             new AlertDialogFragment().show(getFragmentManager(), "ALERT_DIALOG");
         }
     }
@@ -122,6 +134,10 @@ public class MainActivity extends AppCompatActivity {
                         getString(R.string.txtPartidaRecuperada),
                         Snackbar.LENGTH_LONG
                 ).show();
+                return true;
+            case R.id.opcMejoresResultados:
+                Intent intent = new Intent(getApplicationContext(),ResultadosActivity.class);
+                startActivity(intent);
                 return true;
             // TODO!!! resto opciones
 
@@ -189,5 +205,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void actualizarContadorFichas(){
         fichasRestantes.setText(String.valueOf(miJuego.numeroFichas()));
+    }
+
+    public Resultado crearPartidaGuardar(){
+        Resultado resultado = new Resultado();
+        resultado.setJugador(sharedPrefs.getString("nombreJugador","Pablo"));
+        resultado.setFichasRestantes(miJuego.numeroFichas());
+        resultado.setDuracionPartida("03:15");
+        resultado.setFecha(obtenerStringFechaPartida());
+        return resultado;
+    }
+    public String obtenerStringFechaPartida(){
+        Date date = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        return dateFormat.format(date);
     }
 }

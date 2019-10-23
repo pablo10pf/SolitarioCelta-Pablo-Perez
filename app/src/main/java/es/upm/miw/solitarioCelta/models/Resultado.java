@@ -1,4 +1,4 @@
-package es.upm.miw.SolitarioCelta.models;
+package es.upm.miw.solitarioCelta.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -9,6 +9,10 @@ public class Resultado implements Parcelable {
     private int fichasRestantes;
     private String duracionPartida;
     private String fecha;
+
+    public Resultado(){
+
+    }
 
     public Resultado(int id, String jugador, int fichasRestantes, String duracionPartida, String fecha) {
         this.id = id;

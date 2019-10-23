@@ -1,4 +1,4 @@
-package es.upm.miw.SolitarioCelta.models;
+package es.upm.miw.solitarioCelta.models;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -11,7 +11,7 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.upm.miw.SolitarioCelta.models.ResultadoContract.tablaResultado;
+import es.upm.miw.solitarioCelta.models.ResultadoContract.tablaResultado;
 public class RepositorioResultados extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = tablaResultado.TABLE_NAME + ".db";

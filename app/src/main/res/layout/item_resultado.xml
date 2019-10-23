@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="resultado"
+            type="es.upm.miw.solitarioCelta.models.Resultado" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtJugador"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text='@{"Jugador:" + resultado.jugador}'
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/txtFichas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text='@{"Fichas Restantes: "+ resultado.fichasRestantes}'
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/txtDuracion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text='@{"Duracion: " + resultado.duracionPartida}'
+            android:textSize="24sp" />
+        <TextView
+            android:id="@+id/txtFecha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text='@{"Fecha: " + resultado.fecha}'
+            android:textSize="24sp" />
+    </LinearLayout>
+
+</layout>

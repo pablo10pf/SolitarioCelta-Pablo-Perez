@@ -5,7 +5,7 @@ android {
     buildToolsVersion "29.0.2"
 
     defaultConfig {
-        applicationId "es.upm.miw.SolitarioCelta"
+        applicationId "es.upm.miw.solitarioCelta"
         minSdkVersion 21
         targetSdkVersion 28
     }
@@ -17,7 +17,9 @@ android {
         }
     }
 
-    return void
+    dataBinding {
+        enabled true
+    }
 }
 
 dependencies {

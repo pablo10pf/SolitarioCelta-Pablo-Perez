@@ -1,22 +1,22 @@
-package es.upm.miw.SolitarioCelta;
+package es.upm.miw.solitarioCelta;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 
-public class RestartFragment extends DialogFragment {
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final MainActivity main = (MainActivity) getActivity();
+public class AlertDialogFragment extends DialogFragment {
+	@Override
+	public Dialog onCreateDialog(Bundle savedInstanceState) {
+		final MainActivity main = (MainActivity) getActivity();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(main);
         builder
-                .setTitle(R.string.txtDialogoRestartTitulo)
-                .setMessage(R.string.txtDialogoRestartPregunta)
+                .setTitle(R.string.txtDialogoFinalTitulo)
+                .setMessage(R.string.txtDialogoFinalPregunta)
                 .setPositiveButton(
-                        getString(R.string.txtDialogoRestartAfirmativo),
+                        getString(R.string.txtDialogoFinalAfirmativo),
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -26,15 +26,15 @@ public class RestartFragment extends DialogFragment {
                         }
                 )
                 .setNegativeButton(
-                        getString(R.string.txtDialogoRestartNegativo),
+                        getString(R.string.txtDialogoFinalNegativo),
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                //empty. Not operation
+                                main.finish();
                             }
                         }
-                ).setIcon(R.drawable.restart);
+                );
 
-        return builder.create();
-    }
+		return builder.create();
+	}
 }
