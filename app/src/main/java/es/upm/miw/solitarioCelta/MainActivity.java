@@ -24,8 +24,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -119,21 +117,10 @@ public class MainActivity extends AppCompatActivity {
                 new RestartFragment().show(getSupportFragmentManager(), "RESTART_DIALOG");
                 return true;
             case R.id.opcGuardarPartida:
-                guardarPartidaFichero();
-                Snackbar.make(
-                        findViewById(android.R.id.content),
-                        getString(R.string.txtPartidaGuardada),
-                        Snackbar.LENGTH_LONG
-                ).show();
+                new SaveGameFragment().show(getSupportFragmentManager(),"SAVE_GAME_DIALOG");
                 return true;
             case R.id.opcRecuperarPartida:
-                miJuego.deserializaTablero(recuperarPartidaFichero());
-                mostrarTablero();
-                Snackbar.make(
-                        findViewById(android.R.id.content),
-                        getString(R.string.txtPartidaRecuperada),
-                        Snackbar.LENGTH_LONG
-                ).show();
+                new LoadGameFragment().show(getSupportFragmentManager(),"LOAD_GAME_DIALOG");
                 return true;
             case R.id.opcMejoresResultados:
                 Intent intent = new Intent(getApplicationContext(),ResultadosActivity.class);

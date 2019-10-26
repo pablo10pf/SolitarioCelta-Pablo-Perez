@@ -16,14 +16,22 @@
     <!-- Diálogo Final -->
     <string name="txtDialogoFinalTitulo">Fin del juego</string>
     <string name="txtDialogoFinalPregunta">¿Desea jugar otra partida?</string>
-    <string name="txtDialogoFinalAfirmativo">Sí</string>
-    <string name="txtDialogoFinalNegativo">No</string>
+
+    <string name="txtDialogoAfirmativo">Sí</string>
+    <string name="txtDialogoNegativo">No</string>
 
     <!-- Restart Game -->
     <string name="txtDialogoRestartTitulo">Reiniciar Partida</string>
     <string name="txtDialogoRestartPregunta">¿Desea reiniciar la partida?</string>
-    <string name="txtDialogoRestartAfirmativo">Sí</string>
-    <string name="txtDialogoRestartNegativo">No</string>
+
+
+    <!-- Guardar Partida -->
+    <string name="txtDialogoGuardarPartidaTitulo">Guardar Partida</string>
+    <string name="txtDialogoGuardarPartidaPregunta">¿Desea guardar la partida?</string>
+
+    <!-- Recuperar Partida -->
+    <string name="txtDialogoRecuperarPartidaTitulo">Recuperar Partida</string>
+    <string name="txtDialogoRecuperarPartidaPregunta">¿Desea recuperar la partida?</string>
 
     <!-- Acerca de -->
     <string name="aboutText">Acerca de</string>
