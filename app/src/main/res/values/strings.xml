@@ -6,12 +6,13 @@
     <string name="txtOpcionGuardar">Guardar Partida</string>
     <string name="txtOpcionRecuperar">Recuperar Partida</string>
     <string name="txtOpcionMejoresResultados">Mejores Resultados</string>
-    <string name="txtFichas">Fichas Restantes:</string>
+    <string name="txtFichas">Fichas: </string>
 
     <!-- Mensajes SnackBars-->
     <string name="txtSinImplementar">¡No implementado aún!</string>
     <string name="txtPartidaGuardada">Partida guardada correctamente</string>
     <string name="txtPartidaRecuperada">Partida Recuperada correctamente</string>
+    <string name="txtDeleteResultados">Resultaos borrados correctamente</string>
 
     <!-- Diálogo Final -->
     <string name="txtDialogoFinalTitulo">Fin del juego</string>
@@ -24,7 +25,6 @@
     <string name="txtDialogoRestartTitulo">Reiniciar Partida</string>
     <string name="txtDialogoRestartPregunta">¿Desea reiniciar la partida?</string>
 
-
     <!-- Guardar Partida -->
     <string name="txtDialogoGuardarPartidaTitulo">Guardar Partida</string>
     <string name="txtDialogoGuardarPartidaPregunta">¿Desea guardar la partida?</string>
@@ -32,6 +32,10 @@
     <!-- Recuperar Partida -->
     <string name="txtDialogoRecuperarPartidaTitulo">Recuperar Partida</string>
     <string name="txtDialogoRecuperarPartidaPregunta">¿Desea recuperar la partida?</string>
+
+    <!-- Guardar Partida -->
+    <string name="txtDialogoBorrarResultadosTitulo">Borrar Resultados</string>
+    <string name="txtDialogoBorrarResultadosPregunta">¿Desea borrar resultados?</string>
 
     <!-- Acerca de -->
     <string name="aboutText">Acerca de</string>
@@ -46,5 +50,7 @@
     <string name="prefTextoNombreJugador">Pulse para teclear el nombre del jugador</string>
     <string name="prefTituloCategoria2">Ajustes del juego</string>
 
+    <!-- Etiquetas Pantallas -->
+    <string name="textRestultados">Mejores Resultados</string>
 
 </resources>

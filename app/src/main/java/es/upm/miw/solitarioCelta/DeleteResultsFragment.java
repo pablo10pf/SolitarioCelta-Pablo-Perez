@@ -4,26 +4,30 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.SystemClock;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 
-public class RestartFragment extends DialogFragment {
+public class DeleteResultsFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final MainActivity main = (MainActivity) getActivity();
+        final ResultadosActivity activity = (ResultadosActivity) getActivity();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(main);
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder
-                .setTitle(R.string.txtDialogoRestartTitulo)
-                .setMessage(R.string.txtDialogoRestartPregunta)
+                .setTitle(R.string.txtDialogoGuardarPartidaTitulo)
+                .setMessage(R.string.txtDialogoGuardarPartidaPregunta)
                 .setPositiveButton(
                         getString(R.string.txtDialogoAfirmativo),
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                main.miJuego.reiniciar();
-                                main.mostrarTablero();
-                                main.resetChronometer();
+                                activity.repositorioResultados.deleteResults();
+                                activity.resultadoAdapter.clear();
+                                Snackbar.make(
+                                        getActivity().findViewById(android.R.id.content),
+                                        getString(R.string.txtDeleteResultados),
+                                        Snackbar.LENGTH_LONG
+                                ).show();
                             }
                         }
                 )
@@ -35,7 +39,7 @@ public class RestartFragment extends DialogFragment {
                                 //empty. Not operation
                             }
                         }
-                ).setIcon(R.drawable.restart);
+                ).setIcon(android.R.drawable.ic_menu_delete);
 
         return builder.create();
     }

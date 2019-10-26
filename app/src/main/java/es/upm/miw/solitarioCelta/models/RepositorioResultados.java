@@ -67,7 +67,8 @@ public class RepositorioResultados extends SQLiteOpenHelper {
     public List<Resultado> getAll(){
         List<Resultado> listaResultados = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.query(tablaResultado.TABLE_NAME,null,null,null,null,null,null);
+        Cursor c = db.query(tablaResultado.TABLE_NAME,null,null,null,null,
+                null,tablaResultado.COL_NAME_FICHAS + "," + tablaResultado.COL_NAME_DURACION);
         while (c.moveToNext()){
             listaResultados.add(cursor2Resultado(c));
         }
@@ -84,6 +85,12 @@ public class RepositorioResultados extends SQLiteOpenHelper {
                 c.getString(c.getColumnIndex(tablaResultado.COL_NAME_DURACION)),
                 c.getString(c.getColumnIndex(tablaResultado.COL_NAME_FECHA))
         );
+    }
+
+    public void deleteResults(){
+        SQLiteDatabase db = getReadableDatabase();
+        db.execSQL(SQL_DELETE_ENTRIES);
+        onCreate(db);
     }
 
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -26,6 +28,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import es.upm.miw.solitarioCelta.models.RepositorioResultados;
 import es.upm.miw.solitarioCelta.models.Resultado;
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView fichasRestantes;
     RepositorioResultados repositorioResultados;
     SharedPreferences sharedPrefs;
+    Chronometer chronometer;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -46,10 +50,22 @@ public class MainActivity extends AppCompatActivity {
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         fichasRestantes = (TextView) findViewById(R.id.txtFichasValor);
+
+        chronometer = (Chronometer) findViewById(R.id.chronometer);
+        if (savedInstanceState != null) {
+            chronometer.setBase(savedInstanceState.getLong("chronometer"));
+        }
+        chronometer.start();
+
         miJuego = ViewModelProviders.of(this).get(SCeltaViewModel.class);
         mostrarTablero();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putLong("chronometer", chronometer.getBase());
+    }
     /**
      * Se ejecuta al pulsar una ficha
      * Las coordenadas (i, j) se obtienen a partir del nombre del recurso, ya que el botón
@@ -68,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         mostrarTablero();
         if (miJuego.juegoTerminado()) {
-            // TODO guardar puntuación
+            chronometer.stop();
             repositorioResultados.add(crearPartidaGuardar());
             new AlertDialogFragment().show(getFragmentManager(), "ALERT_DIALOG");
         }
@@ -134,6 +150,15 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public void actualizarContadorFichas(){
+        fichasRestantes.setText(String.valueOf(miJuego.numeroFichas()));
+    }
+
+    public void resetChronometer(){
+        chronometer.stop();
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        chronometer.start();
+    }
     public void guardarPartidaFichero() {
         FileOutputStream fos =
                 null;
@@ -186,16 +211,15 @@ public class MainActivity extends AppCompatActivity {
         return sb.toString();
     }
 
-    public void actualizarContadorFichas(){
-        fichasRestantes.setText(String.valueOf(miJuego.numeroFichas()));
-    }
 
     public Resultado crearPartidaGuardar(){
         Resultado resultado = new Resultado();
         resultado.setJugador(sharedPrefs.getString("nombreJugador","Pablo"));
         resultado.setFichasRestantes(miJuego.numeroFichas());
-        resultado.setDuracionPartida("03:15");
+        resultado.setDuracionPartida(new SimpleDateFormat("mm:ss", Locale.US)
+                .format(new Date(SystemClock.elapsedRealtime() - chronometer.getBase())));
         resultado.setFecha(obtenerStringFechaPartida());
+
         return resultado;
     }
     public String obtenerStringFechaPartida(){
