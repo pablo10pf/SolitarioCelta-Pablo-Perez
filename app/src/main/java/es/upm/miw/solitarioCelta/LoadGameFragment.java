@@ -36,7 +36,7 @@ public class LoadGameFragment extends DialogFragment {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                main.finish();
+                                //empty. Not operation
                             }
                         }
                 ).setIcon(android.R.drawable.ic_menu_revert);

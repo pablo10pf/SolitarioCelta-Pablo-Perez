@@ -43,10 +43,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         repositorioResultados = new RepositorioResultados(this);
-        //Log.i("COUNT_ROWS",String.valueOf(repositorioResultados.count()));
-        //Resultado resultado = new Resultado("Pablo",3,"02:40","22/10/2019");
-        //repositorioResultados.add(resultado);
-        //Log.i("RESULTADOS",repositorioResultados.getAll().toString());
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         fichasRestantes = (TextView) findViewById(R.id.txtFichasValor);
