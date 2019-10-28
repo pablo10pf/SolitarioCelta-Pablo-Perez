@@ -77,6 +77,20 @@ public class RepositorioResultados extends SQLiteOpenHelper {
         return listaResultados;
     }
 
+    public List<Resultado> getAllJugador(String jugador){
+        List<Resultado> listaResultados = new ArrayList<>();
+        String [] args = new String[] {jugador};
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.query(tablaResultado.TABLE_NAME,null,tablaResultado.COL_NAME_JUGADOR+"=?",args,null,
+                null,tablaResultado.COL_NAME_FICHAS + "," + tablaResultado.COL_NAME_DURACION, "10");
+        while (c.moveToNext()){
+            listaResultados.add(cursor2Resultado(c));
+        }
+        c.close();
+        db.close();
+        return listaResultados;
+    }
+
     public Resultado cursor2Resultado(@NonNull Cursor c){
         return new Resultado(
                 c.getInt(c.getColumnIndex(tablaResultado.COL_NAME_ID)),

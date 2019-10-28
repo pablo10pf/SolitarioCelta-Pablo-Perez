@@ -14,8 +14,8 @@ public class DeleteResultsFragment extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder
-                .setTitle(R.string.txtDialogoGuardarPartidaTitulo)
-                .setMessage(R.string.txtDialogoGuardarPartidaPregunta)
+                .setTitle(R.string.txtDialogoBorrarResultadosTitulo)
+                .setMessage(R.string.txtDialogoBorrarResultadosPregunta)
                 .setPositiveButton(
                         getString(R.string.txtDialogoAfirmativo),
                         new DialogInterface.OnClickListener() {

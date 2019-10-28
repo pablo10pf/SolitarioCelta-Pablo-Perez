@@ -43,6 +43,10 @@
     (en horizontal o en vertical) hasta conseguir que sólo quede una pieza
     en el centro. En cada movimiento, la pieza movida solo puede saltar única una pieza.</string>
 
+    <!-- Mejores Resultados -->
+    <string name="noResults">No hay resultados guardados</string>
+    <string name="noResultsForPlayer">No hay resultados guardados para ese Jugador</string>
+
     <!-- Preferencias -->
     <string name="preferencesText">Ajustes</string>
     <string name="prefTituloCategoria1">Datos personales</string>
